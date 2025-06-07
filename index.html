@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SAFE MOM</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <meta name="theme-color" content="#e91e63">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SAFE MOM">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen">
+        <div class="header">
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+        </div>
+        <div class="loading-content">
+            <div class="spinner"></div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item"><i class="icon-home"></i> Home</div>
+            <div class="nav-item"><i class="icon-message"></i> Messages</div>
+            <div class="nav-item"><i class="icon-calendar"></i> Calendar</div>
+            <div class="nav-item"><i class="icon-account"></i> Account</div>
+            <div class="nav-item"><i class="icon-notification"></i> Notifications</div>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+        <div class="header">
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+        </div>
+        <div class="content">
+            <h2>Log Into Your Account</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="Enter email..." required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter password..." required>
+                </div>
+                <button type="submit" class="btn-primary">LOGIN</button>
+            </form>
+            <a href="#" class="forgot-password">FORGOT YOUR PASSWORD?</a>
+            <div class="signup-link">
+                Don't Have An Account? <span class="pink">SIGN UP</span>
+            </div>
+            <button class="btn-test" onclick="testLogin()">+ TEST</button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Screen -->
+    <div id="dashboard-screen" class="screen">
+        <div class="header">
+            <div class="status-bar">
+                <div class="location-indicator">
+                    <i class="icon-location"></i>
+                    <span id="current-location">Downtown Area</span>
+                </div>
+                <div class="connection-status online" id="connection-status">
+                    <i class="icon-wifi"></i>
+                </div>
+            </div>
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+            <div class="user-greeting">
+                <span>Good <span id="time-of-day">evening</span>, <span id="user-first-name">Jane</span></span>
+                <div class="safety-score">
+                    <span class="score-label">Safety Score</span>
+                    <div class="score-value">
+                        <span class="score-number">85</span>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="alert-banner high-priority" id="alert-banner">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-content">
+                    <div class="alert-title">Safety Alert</div>
+                    <div class="alert-message">Increased police presence in downtown area due to community event</div>
+                    <div class="alert-time">2 hours ago</div>
+                </div>
+                <button class="alert-dismiss" onclick="dismissAlert()">×</button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value">247</div>
+                    <div class="stat-label">Community Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Check-ins Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🚨</div>
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Active Alerts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Upcoming Events</div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="btn-action purple pulse" onclick="handleQuickCheckIn()">
+                        <i class="action-icon">📍</i>
+                        <span class="action-text">QUICK CHECK-IN</span>
+                        <span class="action-subtitle">Share your location</span>
+                    </button>
+                    <button class="btn-action purple" onclick="showMyEvents()">
+                        <i class="action-icon">📅</i>
+                        <span class="action-text">MY EVENTS</span>
+                        <span class="action-subtitle">View upcoming events</span>
+                    </button>
+                    <button class="btn-action purple" onclick="showCommunity()">
+                        <i class="action-icon">👥</i>
+                        <span class="action-text">MY COMMUNITY</span>
+                        <span class="action-subtitle">Connect with others</span>
+                    </button>
+                    <button class="btn-action purple" onclick="showScreen('calendar-screen')">
+                        <i class="action-icon">🗓️</i>
+                        <span class="action-text">EVENT CALENDAR</span>
+                        <span class="action-subtitle">Browse all events</span>
+                    </button>
+                    <button class="btn-action yellow" onclick="handleSuspiciousReport()">
+                        <i class="action-icon">📢</i>
+                        <span class="action-text">REPORT ACTIVITY</span>
+                        <span class="action-subtitle">Report suspicious behavior</span>
+                    </button>
+                    <button class="btn-action red emergency-btn" onclick="handleEmergency()">
+                        <i class="action-icon">🚨</i>
+                        <span class="action-text">EMERGENCY</span>
+                        <span class="action-subtitle">Call for immediate help</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="recent-activity">
+                <h3>Recent Activity</h3>
+                <div class="activity-list" id="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon check-in">✅</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Sarah M. checked in safely</div>
+                            <div class="activity-time">15 minutes ago</div>
+                            <div class="activity-location">Central Park area</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon event">📅</div>
+                        <div class="activity-content">
+                            <div class="activity-title">New event: Self Defense Workshop</div>
+                            <div class="activity-time">1 hour ago</div>
+                            <div class="activity-location">Community Center</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon message">💬</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Community safety tip posted</div>
+                            <div class="activity-time">3 hours ago</div>
+                            <div class="activity-location">General discussion</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="showScreen('dashboard-screen')">
+                <i class="icon-home"></i> Home
+            </div>
+            <div class="nav-item" onclick="showScreen('messages-screen')">
+                <i class="icon-message"></i> Messages
+            </div>
+            <div class="nav-item" onclick="showScreen('calendar-screen')">
+                <i class="icon-calendar"></i> Calendar
+            </div>
+            <div class="nav-item" onclick="showScreen('account-screen')">
+                <i class="icon-account"></i> Account
+            </div>
+            <div class="nav-item">
+                <i class="icon-notification"></i> Notifications
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages Screen -->
+    <div id="messages-screen" class="screen">
+        <div class="header">
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+            <div class="header-controls">
+                <div class="search-container">
+                    <input type="text" placeholder="Search messages..." class="search-input" id="message-search">
+                    <i class="icon-search search-btn"></i>
+                </div>
+                <div class="header-icons">
+                    <button class="icon-btn" onclick="toggleMessageFilters()">
+                        <i class="icon-filter"></i>
+                    </button>
+                    <button class="icon-btn" onclick="composeMessage()">
+                        <i class="icon-compose"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="message-filters" id="message-filters">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="safety">Safety</button>
+                    <button class="filter-tab" data-filter="events">Events</button>
+                    <button class="filter-tab" data-filter="community">Community</button>
+                </div>
+            </div>
+            
+            <div class="messages-content">
+                <div class="message-item unread priority-high" data-category="safety">
+                    <div class="message-status">
+                        <div class="priority-indicator high"></div>
+                        <div class="unread-indicator"></div>
+                    </div>
+                    <div class="avatar safety-avatar">
+                        <i class="avatar-icon">🚨</i>
+                    </div>
+                    <div class="message-info">
+                        <div class="message-header">
+                            <h3>Emergency Alert System</h3>
+                            <span class="time">2 hours ago</span>
+                        </div>
+                        <p class="message-preview">WEATHER ALERT: Severe thunderstorm warning in effect until 11 PM. Seek shelter immediately if outdoors.</p>
+                        <div class="message-tags">
+                            <span class="tag weather">Weather</span>
+                            <span class="tag urgent">Urgent</span>
+                        </div>
+                    </div>
+                    <div class="message-actions">
+                        <button class="action-btn" onclick="markAsRead(this)">✓</button>
+                        <button class="action-btn" onclick="shareMessage(this)">↗</button>
+                    </div>
+                </div>
+
+                <div class="message-item" data-category="events">
+                    <div class="message-status">
+                        <div class="priority-indicator medium"></div>
+                    </div>
+                    <div class="avatar event-avatar">
+                        <i class="avatar-icon">📅</i>
+                    </div>
+                    <div class="message-info">
+                        <div class="message-header">
+                            <h3>Event Coordinator</h3>
+                            <span class="time">5 hours ago</span>
+                        </div>
+                        <p class="message-preview">Reminder: Self Defense Workshop tomorrow at 2 PM. Limited spots available - arrive early! Location: Community Center, Room B.</p>
+                        <div class="message-actions-inline">
+                            <button class="inline-action" onclick="addToCalendar(this)">📅 Add to Calendar</button>
+                            <button class="inline-action" onclick="setReminder(this)">⏰ Set Reminder</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-item" data-category="community">
+                    <div class="avatar community-avatar">
+                        <i class="avatar-icon">👥</i>
+                    </div>
+                    <div class="message-info">
+                        <div class="message-header">
+                            <h3>Community Moderator</h3>
+                            <span class="time">1 day ago</span>
+                        </div>
+                        <p class="message-preview">Weekly safety tip: Always inform someone of your whereabouts when traveling alone, especially during evening hours.</p>
+                        <div class="engagement-stats">
+                            <span class="stat">👍 24</span>
+                            <span class="stat">💬 8</span>
+                            <span class="stat">📤 12</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-item" data-category="safety">
+                    <div class="avatar personal-avatar">
+                        <i class="avatar-icon">🔒</i>
+                    </div>
+                    <div class="message-info">
+                        <div class="message-header">
+                            <h3>SafeMom Security</h3>
+                            <span class="time">2 days ago</span>
+                        </div>
+                        <p class="message-preview">Your safety score has improved to 85/100! Keep up the great work with regular check-ins and community participation.</p>
+                        <div class="progress-indicator">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <span class="progress-text">85/100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-item" data-category="community">
+                    <div class="avatar user-avatar">
+                        <span class="avatar-text">SM</span>
+                    </div>
+                    <div class="message-info">
+                        <div class="message-header">
+                            <h3>Sarah Martinez</h3>
+                            <span class="time">3 days ago</span>
+                        </div>
+                        <p class="message-preview">Thank you everyone for the warm welcome! Excited to be part of this amazing community. Looking forward to meeting you all at upcoming events.</p>
+                        <div class="message-reactions">
+                            <button class="reaction-btn">❤️ 12</button>
+                            <button class="reaction-btn">👏 8</button>
+                            <button class="reaction-btn">🎉 5</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showScreen('dashboard-screen')">
+                <i class="icon-home"></i> Home
+            </div>
+            <div class="nav-item active" onclick="showScreen('messages-screen')">
+                <i class="icon-message"></i> Messages
+            </div>
+            <div class="nav-item" onclick="showScreen('calendar-screen')">
+                <i class="icon-calendar"></i> Calendar
+            </div>
+            <div class="nav-item" onclick="showScreen('account-screen')">
+                <i class="icon-account"></i> Account
+            </div>
+            <div class="nav-item">
+                <i class="icon-notification"></i> Notifications
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Screen -->
+    <div id="calendar-screen" class="screen">
+        <div class="header">
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+        </div>
+        <div class="content">
+            <div class="calendar-header">
+                <button class="nav-arrow" onclick="previousMonth()">&lt;</button>
+                <h2 id="current-month">April 2025</h2>
+                <button class="nav-arrow" onclick="nextMonth()">&gt;</button>
+            </div>
+            <div class="calendar-grid">
+                <div class="day-header">Sun</div>
+                <div class="day-header">Mon</div>
+                <div class="day-header">Tue</div>
+                <div class="day-header">Wed</div>
+                <div class="day-header">Thu</div>
+                <div class="day-header">Fri</div>
+                <div class="day-header">Sat</div>
+                <div class="day prev-month">30</div>
+                <div class="day prev-month">31</div>
+                <div class="day">1</div>
+                <div class="day">2</div>
+                <div class="day">3</div>
+                <div class="day">4</div>
+                <div class="day">5</div>
+                <div class="day">6</div>
+                <div class="day">7</div>
+                <div class="day">8</div>
+                <div class="day">9</div>
+                <div class="day">10</div>
+                <div class="day">11</div>
+                <div class="day">12</div>
+                <div class="day">13</div>
+                <div class="day">14</div>
+                <div class="day highlighted">15</div>
+                <div class="day highlighted">16</div>
+                <div class="day">17</div>
+                <div class="day">18</div>
+                <div class="day">19</div>
+                <div class="day">20</div>
+                <div class="day">21</div>
+                <div class="day">22</div>
+                <div class="day">23</div>
+                <div class="day">24</div>
+                <div class="day">25</div>
+                <div class="day">26</div>
+                <div class="day">27</div>
+                <div class="day">28</div>
+                <div class="day">29</div>
+                <div class="day">30</div>
+                <div class="day next-month">1</div>
+                <div class="day next-month">2</div>
+                <div class="day next-month">3</div>
+            </div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showScreen('dashboard-screen')">
+                <i class="icon-home"></i> Home
+            </div>
+            <div class="nav-item" onclick="showScreen('messages-screen')">
+                <i class="icon-message"></i> Messages
+            </div>
+            <div class="nav-item active" onclick="showScreen('calendar-screen')">
+                <i class="icon-calendar"></i> Calendar
+            </div>
+            <div class="nav-item" onclick="showScreen('account-screen')">
+                <i class="icon-account"></i> Account
+            </div>
+            <div class="nav-item">
+                <i class="icon-notification"></i> Notifications
+            </div>
+        </div>
+    </div>
+
+    <!-- Check-in Screen -->
+    <div id="checkin-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="showScreen('dashboard-screen')">×</button>
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+        </div>
+        <div class="content">
+            <div class="alert-banner">
+                API Key is not set.....
+            </div>
+            
+            <div class="location-search">
+                <div class="search-box">
+                    <i class="location-icon">📍</i>
+                    <input type="text" placeholder="Search by name or address..." id="location-search-input">
+                </div>
+                
+                <div class="current-location-btn" onclick="getCurrentLocation()">
+                    <i class="location-icon">📍</i>
+                    <span>Current Device Location</span>
+                    <div class="powered-by">powered by <span class="google-logo">Google</span></div>
+                </div>
+            </div>
+            
+            <button class="confirm-checkin-btn" onclick="confirmCheckIn()">
+                CONFIRM CHECK-IN
+            </button>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showScreen('dashboard-screen')">
+                <i class="icon-home"></i> Home
+            </div>
+            <div class="nav-item" onclick="showScreen('messages-screen')">
+                <i class="icon-message"></i> Messages
+            </div>
+            <div class="nav-item" onclick="showScreen('calendar-screen')">
+                <i class="icon-calendar"></i> Calendar
+            </div>
+            <div class="nav-item" onclick="showScreen('account-screen')">
+                <i class="icon-account"></i> Account
+            </div>
+            <div class="nav-item">
+                <i class="icon-notification"></i> Notifications
+            </div>
+        </div>
+    </div>
+
+    <!-- Events List Screen -->
+    <div id="events-list-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="showScreen('dashboard-screen')">×</button>
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+        </div>
+        <div class="content">
+            <div class="events-container" id="events-container">
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="date-number">29</div>
+                        <div class="date-month">Jan</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>Self Defense Workshop</h3>
+                        <p>Learn essential safety techniques from certified instructors</p>
+                    </div>
+                </div>
+                
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="date-number">15</div>
+                        <div class="date-month">Feb</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>Community Safety Meeting</h3>
+                        <p>Monthly neighborhood safety discussion</p>
+                    </div>
+                </div>
+                
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="date-number">22</div>
+                        <div class="date-month">Feb</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>Emergency Preparedness Training</h3>
+                        <p>Learn how to prepare for various emergency situations</p>
+                    </div>
+                </div>
+                
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="date-number">05</div>
+                        <div class="date-month">Mar</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>Neighborhood Watch Patrol</h3>
+                        <p>Volunteer patrol training and coordination meeting</p>
+                    </div>
+                </div>
+                
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="date-number">18</div>
+                        <div class="date-month">Mar</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>Safety Technology Workshop</h3>
+                        <p>Learn about the latest safety apps and devices</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showScreen('dashboard-screen')">
+                <i class="icon-home"></i> Home
+            </div>
+            <div class="nav-item" onclick="showScreen('messages-screen')">
+                <i class="icon-message"></i> Messages
+            </div>
+            <div class="nav-item active" onclick="showScreen('calendar-screen')">
+                <i class="icon-calendar"></i> Calendar
+            </div>
+            <div class="nav-item" onclick="showScreen('account-screen')">
+                <i class="icon-account"></i> Account
+            </div>
+            <div class="nav-item">
+                <i class="icon-notification"></i> Notifications
+            </div>
+        </div>
+    </div>
+
+    <!-- Community Feed Screen -->
+    <div id="community-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="showScreen('dashboard-screen')">×</button>
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+            <div class="community-subtitle">Keep up with what's happening in our vibrant community.</div>
+        </div>
+        <div class="content">
+            <div class="community-feed">
+                <div class="post-item">
+                    <div class="post-header">
+                        <div class="user-avatar community-user">
+                            <span>HD</span>
+                        </div>
+                        <div class="user-info">
+                            <h4>Harper Davis</h4>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Come join us for the Run for a Cure this weekend! All skill levels welcome. We'll have both 5k and 10k races. See our website for details.</p>
+                        <div class="post-image">
+                            <div class="placeholder-image">🏃‍♀️ Running Event Photo</div>
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <div class="action-buttons-post">
+                            <button class="post-action-btn" onclick="likePost(this)">
+                                <i class="icon">❤️</i>
+                            </button>
+                            <button class="post-action-btn" onclick="commentPost(this)">
+                                <i class="icon">💬</i>
+                            </button>
+                            <button class="post-action-btn" onclick="savePost(this)">
+                                <i class="icon">🔖</i>
+                            </button>
+                        </div>
+                        <div class="post-stats">2 Likes - 1 Comment</div>
+                    </div>
+                </div>
+                
+                <div class="post-item">
+                    <div class="post-header">
+                        <div class="user-avatar community-user">
+                            <span>DS</span>
+                        </div>
+                        <div class="user-info">
+                            <h4>David Smith</h4>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Reminder: Community safety meeting tomorrow at 7 PM. We'll be discussing new neighborhood watch protocols and sharing safety tips.</p>
+                    </div>
+                    <div class="post-actions">
+                        <div class="action-buttons-post">
+                            <button class="post-action-btn" onclick="likePost(this)">
+                                <i class="icon">❤️</i>
+                            </button>
+                            <button class="post-action-btn" onclick="commentPost(this)">
+                                <i class="icon">💬</i>
+                            </button>
+                            <button class="post-action-btn" onclick="savePost(this)">
+                                <i class="icon">🔖</i>
+                            </button>
+                        </div>
+                        <div class="post-stats">5 Likes - 3 Comments</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="new-post-btn" onclick="createNewPost()">
+                ✏️ NEW POST
+            </button>
+        </div>
+        
+        <div class="community-nav">
+            <div class="nav-tab active" data-tab="all">All</div>
+            <div class="nav-tab" data-tab="following">Following</div>
+            <div class="nav-tab" data-tab="likes">Likes</div>
+            <div class="nav-tab" data-tab="saves">Saves</div>
+            <div class="nav-tab" data-tab="more">More</div>
+        </div>
+        
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showScreen('dashboard-screen')">
+                <i class="icon-home"></i> Home
+            </div>
+            <div class="nav-item" onclick="showScreen('messages-screen')">
+                <i class="icon-message"></i> Messages
+            </div>
+            <div class="nav-item" onclick="showScreen('calendar-screen')">
+                <i class="icon-calendar"></i> Calendar
+            </div>
+            <div class="nav-item" onclick="showScreen('account-screen')">
+                <i class="icon-account"></i> Account
+            </div>
+            <div class="nav-item">
+                <i class="icon-notification"></i> Notifications
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Alert Screen -->
+    <div id="emergency-alert-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="showScreen('dashboard-screen')">×</button>
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+        </div>
+        <div class="content emergency-content">
+            <div class="alert-section">
+                <h2>Alert All Moms</h2>
+                <p>Clicking the "MOM ALERT" button below will push an SOS alert and ping your exact location to all moms within your safe zone.</p>
+                
+                <button class="mom-alert-btn" onclick="sendMomAlert()">
+                    MOM ALERT
+                </button>
+            </div>
+            
+            <div class="emergency-section">
+                <h2 class="emergency-title">911 EMERGENCY</h2>
+                <p>Clicking the "911" button below will alert all moms at your current event as well as pinging your location to the nearest local law enforcement facility.</p>
+                <p><strong>Your phone will also immediately dial 911 to connect you with emergency services.</strong></p>
+                
+                <button class="emergency-btn-911" onclick="call911Emergency()">
+                    911
+                </button>
+            </div>
+            
+            <button class="cancel-btn" onclick="showScreen('dashboard-screen')">
+                CANCEL
+            </button>
+        </div>
+    </div>
+
+    <!-- Report Category Screen -->
+    <div id="report-category-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="showScreen('dashboard-screen')">×</button>
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+        </div>
+        <div class="content">
+            <h2 class="screen-title">Choose a report category</h2>
+            
+            <div class="category-grid">
+                <div class="category-item" onclick="selectReportCategory('law-enforcement')">
+                    <div class="category-icon">🛡️</div>
+                    <div class="category-label">Law Enforcement</div>
+                </div>
+                
+                <div class="category-item" onclick="selectReportCategory('fire-department')">
+                    <div class="category-icon">🔥</div>
+                    <div class="category-label">Fire Department</div>
+                </div>
+                
+                <div class="category-item" onclick="selectReportCategory('animal-control')">
+                    <div class="category-icon">🐾</div>
+                    <div class="category-label">Animal Control</div>
+                </div>
+                
+                <div class="category-item" onclick="selectReportCategory('medical-emergency')">
+                    <div class="category-icon">⚕️</div>
+                    <div class="category-label">Medical Emergency</div>
+                </div>
+                
+                <div class="category-item" onclick="selectReportCategory('hazardous-materials')">
+                    <div class="category-icon">⚠️</div>
+                    <div class="category-label">Hazardous Materials</div>
+                </div>
+                
+                <div class="category-item" onclick="selectReportCategory('other')">
+                    <div class="category-icon">⚙️</div>
+                    <div class="category-label">Other</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showScreen('dashboard-screen')">
+                <i class="icon-home"></i> Home
+            </div>
+            <div class="nav-item" onclick="showScreen('messages-screen')">
+                <i class="icon-message"></i> Messages
+            </div>
+            <div class="nav-item" onclick="showScreen('calendar-screen')">
+                <i class="icon-calendar"></i> Calendar
+            </div>
+            <div class="nav-item" onclick="showScreen('account-screen')">
+                <i class="icon-account"></i> Account
+            </div>
+            <div class="nav-item">
+                <i class="icon-notification"></i> Notifications
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Screen -->
+    <div id="account-screen" class="screen">
+        <div class="header">
+            <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
+        </div>
+        <div class="content">
+            <h2 class="screen-title">Account Settings</h2>
+            <div class="profile-section">
+                <div class="profile-icon"></div>
+                <h3>SAFEMOM ADMIN</h3>
+                <p>admin@safemom.com</p>
+            </div>
+            <div class="account-section">
+                <h4>Account</h4>
+                <div class="account-item">
+                    <div class="item-info">
+                        <span class="label">Title</span>
+                        <span class="value" id="user-title">Marketing Manager</span>
+                    </div>
+                    <button class="edit-btn" onclick="editField('title')">Edit</button>
+                </div>
+                <div class="account-item">
+                    <div class="item-info">
+                        <span class="label">Name</span>
+                        <span class="value" id="user-name">Jane Smith</span>
+                    </div>
+                    <button class="edit-btn" onclick="editField('name')">Edit</button>
+                </div>
+                <div class="account-item">
+                    <div class="item-info">
+                        <span class="label">Email</span>
+                        <span class="value" id="user-email">janesmith@email.com</span>
+                    </div>
+                    <button class="edit-btn" onclick="editField('email')">Edit</button>
+                </div>
+            </div>
+            <div class="notifications-section">
+                <h4>Notifications</h4>
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <span class="label">On Follow</span>
+                        <span class="description">Get notified when someone follows you</span>
+                    </div>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="follow-notifications">
+                        <label for="follow-notifications"></label>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-info">
+                        <span class="label">New Message</span>
+                        <span class="description">Get notified when you get a message</span>
+                    </div>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="message-notifications">
+                        <label for="message-notifications"></label>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-signout" onclick="signOut()">SIGN OUT</button>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="showScreen('dashboard-screen')">
+                <i class="icon-home"></i> Home
+            </div>
+            <div class="nav-item" onclick="showScreen('messages-screen')">
+                <i class="icon-message"></i> Messages
+            </div>
+            <div class="nav-item" onclick="showScreen('calendar-screen')">
+                <i class="icon-calendar"></i> Calendar
+            </div>
+            <div class="nav-item active" onclick="showScreen('account-screen')">
+                <i class="icon-account"></i> Account
+            </div>
+            <div class="nav-item">
+                <i class="icon-notification"></i> Notifications
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html> 
