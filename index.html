@@ -2,15 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SAFE MOM</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
     <meta name="theme-color" content="#e91e63">
+    
+    <!-- iOS PWA Support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="SAFE MOM">
+    <meta name="apple-mobile-web-app-title" content="SafeMom">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- iOS App Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icon-152.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="icon-144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="icon-128.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="icon-96.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="icon-72.png">
     <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- iOS Splash Screen Support -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        /* iOS Safe Area Support */
+        body {
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+        .header {
+            padding-top: max(20px, env(safe-area-inset-top));
+        }
+        .bottom-nav {
+            padding-bottom: max(10px, env(safe-area-inset-bottom));
+        }
+    </style>
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -831,5 +858,6 @@
     </div>
 
     <script src="app.js"></script>
+    <script src="install.js"></script>
 </body>
 </html> 

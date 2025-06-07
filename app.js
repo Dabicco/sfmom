@@ -82,17 +82,37 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
+    // Handle iOS PWA quick actions from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+    
     // Check if user is already logged in
     const savedUser = localStorage.getItem('safemom-user');
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
-        showScreen('dashboard-screen');
+        
+        // Handle quick actions if logged in
+        if (action === 'emergency') {
+            showScreen('emergency-alert-screen');
+        } else if (action === 'checkin') {
+            showScreen('checkin-screen');
+        } else {
+            showScreen('dashboard-screen');
+        }
     } else {
         showScreen('login-screen');
     }
 
+    // Set body data attribute for CSS targeting
+    if (action) {
+        document.body.setAttribute('data-action', action);
+    }
+
     // Set up event listeners
     setupEventListeners();
+    
+    // iOS PWA optimizations
+    setupiOSPWAFeatures();
     
     // Register service worker for PWA
     if ('serviceWorker' in navigator) {
@@ -100,6 +120,46 @@ function initializeApp() {
             .then(registration => console.log('SW registered:', registration))
             .catch(error => console.log('SW registration failed:', error));
     }
+}
+
+function setupiOSPWAFeatures() {
+    // Prevent iOS bounce scrolling
+    document.addEventListener('touchmove', function(e) {
+        if (e.target.closest('.content') === null) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    // iOS viewport height fix
+    function setVH() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+    
+    // iOS PWA status bar color
+    if (window.navigator.standalone) {
+        document.querySelector('meta[name="theme-color"]').content = '#000000';
+    }
+    
+    // iOS haptic feedback simulation
+    window.triggerHaptic = function() {
+        if (window.navigator.vibrate) {
+            window.navigator.vibrate(50);
+        }
+    };
+    
+    // Add haptic feedback to important buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.emergency-btn-911, .mom-alert-btn, .btn-action')) {
+            if (typeof window.triggerHaptic === 'function') {
+                window.triggerHaptic();
+            }
+        }
+    });
 }
 
 function setupEventListeners() {
