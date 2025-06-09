@@ -320,6 +320,61 @@ function handleCheckIn() {
     showScreen('checkin-screen');
 }
 
+function handleQuickCheckIn() {
+    // Show loading
+    showNotification('Getting your location...', 'info');
+    
+    // Get current location
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                
+                // Store check-in data
+                const checkIn = {
+                    timestamp: new Date().toISOString(),
+                    location: { lat, lng },
+                    user: currentUser ? currentUser.name : 'Anonymous',
+                    type: 'quick'
+                };
+                
+                // Save to localStorage (in real app, would send to server)
+                let checkIns = JSON.parse(localStorage.getItem('safemom-checkins') || '[]');
+                checkIns.unshift(checkIn);
+                localStorage.setItem('safemom-checkins', JSON.stringify(checkIns));
+                
+                showNotification('Quick check-in successful! 📍', 'success');
+                
+                // Optionally trigger haptic feedback
+                if (typeof window.triggerHaptic === 'function') {
+                    window.triggerHaptic();
+                }
+            },
+            function(error) {
+                console.error('Geolocation error:', error);
+                showNotification('Location access denied. Check-in saved without location.', 'error');
+                
+                // Save check-in without location
+                const checkIn = {
+                    timestamp: new Date().toISOString(),
+                    location: null,
+                    user: currentUser ? currentUser.name : 'Anonymous',
+                    type: 'quick'
+                };
+                
+                let checkIns = JSON.parse(localStorage.getItem('safemom-checkins') || '[]');
+                checkIns.unshift(checkIn);
+                localStorage.setItem('safemom-checkins', JSON.stringify(checkIns));
+                
+                showNotification('Quick check-in saved (no location)', 'success');
+            }
+        );
+    } else {
+        showNotification('Geolocation not supported by this browser', 'error');
+    }
+}
+
 function showMyEvents() {
     showScreen('events-list-screen');
 }
@@ -591,20 +646,27 @@ function formatTime(time) {
     return new Date(`2000-01-01 ${time}`).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 }
 
-// PWA Installation
-let deferredPrompt;
+// PWA Installation - Remove duplicate declaration since it's in install.js
+// let deferredPrompt; // Removed - declared in install.js
 
 window.addEventListener('beforeinstallprompt', (e) => {
     // Prevent Chrome 67 and earlier from automatically showing the prompt
     e.preventDefault();
     // Stash the event so it can be triggered later
-    deferredPrompt = e;
+    if (typeof deferredPrompt !== 'undefined') {
+        deferredPrompt = e;
+    }
     
     // Show install button or prompt
     showInstallPrompt();
 });
 
 function showInstallPrompt() {
+    // Check if install.js is handling this
+    if (typeof window.deferredPrompt !== 'undefined' || document.getElementById('install-prompt')) {
+        return; // install.js is handling PWA installation
+    }
+    
     const installButton = document.createElement('button');
     installButton.textContent = 'Install App';
     installButton.className = 'btn-primary';
@@ -617,7 +679,7 @@ function showInstallPrompt() {
     installButton.style.width = 'auto';
     
     installButton.addEventListener('click', async () => {
-        if (deferredPrompt) {
+        if (typeof deferredPrompt !== 'undefined' && deferredPrompt) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
             if (outcome === 'accepted') {
