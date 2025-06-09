@@ -1817,4 +1817,294 @@ body[data-action="checkin"] #checkin-screen {
     .screen {
         height: 100dvh;
     }
+}
+
+/* API Warning Banner */
+.alert-banner.api-warning {
+    background-color: #ff4444;
+    color: #fff;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Promotional Cards */
+.promo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.promo-card {
+    background-color: #333;
+    border-radius: 12px;
+    padding: 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #444;
+}
+
+.promo-placeholder {
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Main Action Buttons */
+.main-actions {
+    margin-bottom: 30px;
+}
+
+.action-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.btn-main-action {
+    flex: 1;
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-main-action.purple {
+    background-color: #e91e63;
+}
+
+.btn-main-action.purple:hover {
+    background-color: #c2185b;
+    transform: translateY(-2px);
+}
+
+/* Alert and Emergency Section */
+.alert-emergency-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-alert {
+    width: 100%;
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-alert.yellow {
+    background-color: #ffeb3b;
+}
+
+.btn-alert.yellow:hover {
+    background-color: #fdd835;
+    transform: translateY(-2px);
+}
+
+.btn-emergency {
+    width: 100%;
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-emergency.red {
+    background-color: #f44336;
+}
+
+.btn-emergency.red:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+}
+
+/* Empty State for Messages */
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    text-align: center;
+}
+
+.no-items-message {
+    color: #999;
+    font-size: 18px;
+}
+
+/* Profile Avatar with Hexagon */
+.profile-avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.avatar-hexagon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #e91e63 0%, #ad1457 100%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hexagon-inner {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Account Screen Styling */
+.profile-name {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.profile-email {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.section-label {
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.account-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #333;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-label {
+    display: block;
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.item-value {
+    color: #fff;
+    font-size: 16px;
+}
+
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #333;
+}
+
+.notification-info {
+    flex: 1;
+}
+
+.notification-label {
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.notification-description {
+    color: #999;
+    font-size: 14px;
+}
+
+/* Event List Items */
+.event-list-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 15px;
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.event-date-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: #e91e63;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.event-date-block .date-number {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.event-date-block .date-month {
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.event-details {
+    flex: 1;
+}
+
+.event-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.event-description {
+    color: #999;
+    font-size: 14px;
+    line-height: 1.4;
 } 

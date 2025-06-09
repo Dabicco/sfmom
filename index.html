@@ -87,127 +87,57 @@
     <!-- Main Dashboard Screen -->
     <div id="dashboard-screen" class="screen">
         <div class="header">
-            <div class="status-bar">
-                <div class="location-indicator">
-                    <i class="icon-location"></i>
-                    <span id="current-location">Downtown Area</span>
-                </div>
-                <div class="connection-status online" id="connection-status">
-                    <i class="icon-wifi"></i>
-                </div>
-            </div>
             <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
-            <div class="user-greeting">
-                <span>Good <span id="time-of-day">evening</span>, <span id="user-first-name">Jane</span></span>
-                <div class="safety-score">
-                    <span class="score-label">Safety Score</span>
-                    <div class="score-value">
-                        <span class="score-number">85</span>
-                        <div class="score-bar">
-                            <div class="score-fill" style="width: 85%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="content">
-            <div class="alert-banner high-priority" id="alert-banner">
-                <div class="alert-icon">⚠️</div>
-                <div class="alert-content">
-                    <div class="alert-title">Safety Alert</div>
-                    <div class="alert-message">Increased police presence in downtown area due to community event</div>
-                    <div class="alert-time">2 hours ago</div>
-                </div>
-                <button class="alert-dismiss" onclick="dismissAlert()">×</button>
+            <div class="alert-banner api-warning" id="api-warning-banner">
+                API Key is not set.....
             </div>
             
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-value">247</div>
-                    <div class="stat-label">Community Members</div>
+            <!-- Promotional Cards -->
+            <div class="promo-grid">
+                <div class="promo-card">
+                    <div class="promo-placeholder">Promo 1</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon">✅</div>
-                    <div class="stat-value">12</div>
-                    <div class="stat-label">Check-ins Today</div>
+                <div class="promo-card">
+                    <div class="promo-placeholder">Promo 2</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🚨</div>
-                    <div class="stat-value">0</div>
-                    <div class="stat-label">Active Alerts</div>
+                <div class="promo-card">
+                    <div class="promo-placeholder">Promo 3</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon">📅</div>
-                    <div class="stat-value">3</div>
-                    <div class="stat-label">Upcoming Events</div>
+                <div class="promo-card">
+                    <div class="promo-placeholder">Promo 4</div>
                 </div>
             </div>
 
-            <div class="quick-actions">
-                <h3>Quick Actions</h3>
-                <div class="action-buttons">
-                    <button class="btn-action purple pulse" onclick="handleQuickCheckIn()">
-                        <i class="action-icon">📍</i>
-                        <span class="action-text">QUICK CHECK-IN</span>
-                        <span class="action-subtitle">Share your location</span>
+            <!-- Main Action Buttons -->
+            <div class="main-actions">
+                <div class="action-row">
+                    <button class="btn-main-action purple" onclick="showScreen('checkin-screen')">
+                        CHECK-IN
                     </button>
-                    <button class="btn-action purple" onclick="showMyEvents()">
-                        <i class="action-icon">📅</i>
-                        <span class="action-text">MY EVENTS</span>
-                        <span class="action-subtitle">View upcoming events</span>
+                    <button class="btn-main-action purple" onclick="showScreen('events-list-screen')">
+                        MY EVENTS
                     </button>
-                    <button class="btn-action purple" onclick="showCommunity()">
-                        <i class="action-icon">👥</i>
-                        <span class="action-text">MY COMMUNITY</span>
-                        <span class="action-subtitle">Connect with others</span>
+                </div>
+                <div class="action-row">
+                    <button class="btn-main-action purple" onclick="showScreen('community-screen')">
+                        MY COMMUNITY
                     </button>
-                    <button class="btn-action purple" onclick="showScreen('calendar-screen')">
-                        <i class="action-icon">🗓️</i>
-                        <span class="action-text">EVENT CALENDAR</span>
-                        <span class="action-subtitle">Browse all events</span>
-                    </button>
-                    <button class="btn-action yellow" onclick="handleSuspiciousReport()">
-                        <i class="action-icon">📢</i>
-                        <span class="action-text">REPORT ACTIVITY</span>
-                        <span class="action-subtitle">Report suspicious behavior</span>
-                    </button>
-                    <button class="btn-action red emergency-btn" onclick="handleEmergency()">
-                        <i class="action-icon">🚨</i>
-                        <span class="action-text">EMERGENCY</span>
-                        <span class="action-subtitle">Call for immediate help</span>
+                    <button class="btn-main-action purple" onclick="showScreen('calendar-screen')">
+                        EVENT CALENDAR
                     </button>
                 </div>
             </div>
 
-            <div class="recent-activity">
-                <h3>Recent Activity</h3>
-                <div class="activity-list" id="activity-list">
-                    <div class="activity-item">
-                        <div class="activity-icon check-in">✅</div>
-                        <div class="activity-content">
-                            <div class="activity-title">Sarah M. checked in safely</div>
-                            <div class="activity-time">15 minutes ago</div>
-                            <div class="activity-location">Central Park area</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon event">📅</div>
-                        <div class="activity-content">
-                            <div class="activity-title">New event: Self Defense Workshop</div>
-                            <div class="activity-time">1 hour ago</div>
-                            <div class="activity-location">Community Center</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon message">💬</div>
-                        <div class="activity-content">
-                            <div class="activity-title">Community safety tip posted</div>
-                            <div class="activity-time">3 hours ago</div>
-                            <div class="activity-location">General discussion</div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Alert and Emergency Buttons -->
+            <div class="alert-emergency-section">
+                <button class="btn-alert yellow" onclick="showScreen('report-category-screen')">
+                    REPORT SUSPICIOUS ACTIVITY
+                </button>
+                <button class="btn-emergency red" onclick="showScreen('emergency-alert-screen')">
+                    EMERGENCY
+                </button>
             </div>
         </div>
         <div class="bottom-nav">
@@ -233,131 +163,10 @@
     <div id="messages-screen" class="screen">
         <div class="header">
             <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
-            <div class="header-controls">
-                <div class="search-container">
-                    <input type="text" placeholder="Search messages..." class="search-input" id="message-search">
-                    <i class="icon-search search-btn"></i>
-                </div>
-                <div class="header-icons">
-                    <button class="icon-btn" onclick="toggleMessageFilters()">
-                        <i class="icon-filter"></i>
-                    </button>
-                    <button class="icon-btn" onclick="composeMessage()">
-                        <i class="icon-compose"></i>
-                    </button>
-                </div>
-            </div>
         </div>
         <div class="content">
-            <div class="message-filters" id="message-filters">
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">All</button>
-                    <button class="filter-tab" data-filter="safety">Safety</button>
-                    <button class="filter-tab" data-filter="events">Events</button>
-                    <button class="filter-tab" data-filter="community">Community</button>
-                </div>
-            </div>
-            
-            <div class="messages-content">
-                <div class="message-item unread priority-high" data-category="safety">
-                    <div class="message-status">
-                        <div class="priority-indicator high"></div>
-                        <div class="unread-indicator"></div>
-                    </div>
-                    <div class="avatar safety-avatar">
-                        <i class="avatar-icon">🚨</i>
-                    </div>
-                    <div class="message-info">
-                        <div class="message-header">
-                            <h3>Emergency Alert System</h3>
-                            <span class="time">2 hours ago</span>
-                        </div>
-                        <p class="message-preview">WEATHER ALERT: Severe thunderstorm warning in effect until 11 PM. Seek shelter immediately if outdoors.</p>
-                        <div class="message-tags">
-                            <span class="tag weather">Weather</span>
-                            <span class="tag urgent">Urgent</span>
-                        </div>
-                    </div>
-                    <div class="message-actions">
-                        <button class="action-btn" onclick="markAsRead(this)">✓</button>
-                        <button class="action-btn" onclick="shareMessage(this)">↗</button>
-                    </div>
-                </div>
-
-                <div class="message-item" data-category="events">
-                    <div class="message-status">
-                        <div class="priority-indicator medium"></div>
-                    </div>
-                    <div class="avatar event-avatar">
-                        <i class="avatar-icon">📅</i>
-                    </div>
-                    <div class="message-info">
-                        <div class="message-header">
-                            <h3>Event Coordinator</h3>
-                            <span class="time">5 hours ago</span>
-                        </div>
-                        <p class="message-preview">Reminder: Self Defense Workshop tomorrow at 2 PM. Limited spots available - arrive early! Location: Community Center, Room B.</p>
-                        <div class="message-actions-inline">
-                            <button class="inline-action" onclick="addToCalendar(this)">📅 Add to Calendar</button>
-                            <button class="inline-action" onclick="setReminder(this)">⏰ Set Reminder</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-item" data-category="community">
-                    <div class="avatar community-avatar">
-                        <i class="avatar-icon">👥</i>
-                    </div>
-                    <div class="message-info">
-                        <div class="message-header">
-                            <h3>Community Moderator</h3>
-                            <span class="time">1 day ago</span>
-                        </div>
-                        <p class="message-preview">Weekly safety tip: Always inform someone of your whereabouts when traveling alone, especially during evening hours.</p>
-                        <div class="engagement-stats">
-                            <span class="stat">👍 24</span>
-                            <span class="stat">💬 8</span>
-                            <span class="stat">📤 12</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-item" data-category="safety">
-                    <div class="avatar personal-avatar">
-                        <i class="avatar-icon">🔒</i>
-                    </div>
-                    <div class="message-info">
-                        <div class="message-header">
-                            <h3>SafeMom Security</h3>
-                            <span class="time">2 days ago</span>
-                        </div>
-                        <p class="message-preview">Your safety score has improved to 85/100! Keep up the great work with regular check-ins and community participation.</p>
-                        <div class="progress-indicator">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 85%"></div>
-                            </div>
-                            <span class="progress-text">85/100</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-item" data-category="community">
-                    <div class="avatar user-avatar">
-                        <span class="avatar-text">SM</span>
-                    </div>
-                    <div class="message-info">
-                        <div class="message-header">
-                            <h3>Sarah Martinez</h3>
-                            <span class="time">3 days ago</span>
-                        </div>
-                        <p class="message-preview">Thank you everyone for the warm welcome! Excited to be part of this amazing community. Looking forward to meeting you all at upcoming events.</p>
-                        <div class="message-reactions">
-                            <button class="reaction-btn">❤️ 12</button>
-                            <button class="reaction-btn">👏 8</button>
-                            <button class="reaction-btn">🎉 5</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="empty-state">
+                <p class="no-items-message">No List Items...</p>
             </div>
         </div>
         <div class="bottom-nav">
@@ -504,63 +313,62 @@
     <!-- Events List Screen -->
     <div id="events-list-screen" class="screen">
         <div class="header">
-            <button class="back-btn" onclick="showScreen('dashboard-screen')">×</button>
             <h1 class="logo">SAFE<span class="pink">MOM</span></h1>
         </div>
         <div class="content">
             <div class="events-container" id="events-container">
-                <div class="event-item">
-                    <div class="event-date">
+                <div class="event-list-item">
+                    <div class="event-date-block">
                         <div class="date-number">29</div>
                         <div class="date-month">Jan</div>
                     </div>
-                    <div class="event-info">
-                        <h3>Self Defense Workshop</h3>
-                        <p>Learn essential safety techniques from certified instructors</p>
+                    <div class="event-details">
+                        <h3 class="event-title">List Item Title</h3>
+                        <p class="event-description">Add your own text here</p>
                     </div>
                 </div>
                 
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="date-number">15</div>
-                        <div class="date-month">Feb</div>
+                <div class="event-list-item">
+                    <div class="event-date-block">
+                        <div class="date-number">29</div>
+                        <div class="date-month">Jan</div>
                     </div>
-                    <div class="event-info">
-                        <h3>Community Safety Meeting</h3>
-                        <p>Monthly neighborhood safety discussion</p>
-                    </div>
-                </div>
-                
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="date-number">22</div>
-                        <div class="date-month">Feb</div>
-                    </div>
-                    <div class="event-info">
-                        <h3>Emergency Preparedness Training</h3>
-                        <p>Learn how to prepare for various emergency situations</p>
+                    <div class="event-details">
+                        <h3 class="event-title">List Item Title</h3>
+                        <p class="event-description">Add your own text here</p>
                     </div>
                 </div>
                 
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="date-number">05</div>
-                        <div class="date-month">Mar</div>
+                <div class="event-list-item">
+                    <div class="event-date-block">
+                        <div class="date-number">29</div>
+                        <div class="date-month">Jan</div>
                     </div>
-                    <div class="event-info">
-                        <h3>Neighborhood Watch Patrol</h3>
-                        <p>Volunteer patrol training and coordination meeting</p>
+                    <div class="event-details">
+                        <h3 class="event-title">List Item Title</h3>
+                        <p class="event-description">Add your own text here</p>
                     </div>
                 </div>
                 
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="date-number">18</div>
-                        <div class="date-month">Mar</div>
+                <div class="event-list-item">
+                    <div class="event-date-block">
+                        <div class="date-number">29</div>
+                        <div class="date-month">Jan</div>
                     </div>
-                    <div class="event-info">
-                        <h3>Safety Technology Workshop</h3>
-                        <p>Learn about the latest safety apps and devices</p>
+                    <div class="event-details">
+                        <h3 class="event-title">List Item Title</h3>
+                        <p class="event-description">Add your own text here</p>
+                    </div>
+                </div>
+                
+                <div class="event-list-item">
+                    <div class="event-date-block">
+                        <div class="date-number">29</div>
+                        <div class="date-month">Jan</div>
+                    </div>
+                    <div class="event-details">
+                        <h3 class="event-title">List Item Title</h3>
+                        <p class="event-description">Add your own text here</p>
                     </div>
                 </div>
             </div>
@@ -785,40 +593,46 @@
         <div class="content">
             <h2 class="screen-title">Account Settings</h2>
             <div class="profile-section">
-                <div class="profile-icon"></div>
-                <h3>SAFEMOM ADMIN</h3>
-                <p>admin@safemom.com</p>
+                <div class="profile-avatar-container">
+                    <div class="profile-avatar">
+                        <div class="avatar-hexagon">
+                            <div class="hexagon-inner"></div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="profile-name">SAFEMOM ADMIN</h3>
+                <p class="profile-email">admin@safemom.com</p>
             </div>
             <div class="account-section">
-                <h4>Account</h4>
+                <h4 class="section-label">Account</h4>
                 <div class="account-item">
                     <div class="item-info">
-                        <span class="label">Title</span>
-                        <span class="value" id="user-title">Marketing Manager</span>
+                        <span class="item-label">Title</span>
+                        <span class="item-value" id="user-title">Marketing Manager</span>
                     </div>
                     <button class="edit-btn" onclick="editField('title')">Edit</button>
                 </div>
                 <div class="account-item">
                     <div class="item-info">
-                        <span class="label">Name</span>
-                        <span class="value" id="user-name">Jane Smith</span>
+                        <span class="item-label">Name</span>
+                        <span class="item-value" id="user-name">Jane Smith</span>
                     </div>
                     <button class="edit-btn" onclick="editField('name')">Edit</button>
                 </div>
                 <div class="account-item">
                     <div class="item-info">
-                        <span class="label">Email</span>
-                        <span class="value" id="user-email">janesmith@email.com</span>
+                        <span class="item-label">Email</span>
+                        <span class="item-value" id="user-email">janesmith@email.com</span>
                     </div>
                     <button class="edit-btn" onclick="editField('email')">Edit</button>
                 </div>
             </div>
             <div class="notifications-section">
-                <h4>Notifications</h4>
+                <h4 class="section-label">Notifications</h4>
                 <div class="notification-item">
                     <div class="notification-info">
-                        <span class="label">On Follow</span>
-                        <span class="description">Get notified when someone follows you</span>
+                        <span class="notification-label">On Follow</span>
+                        <span class="notification-description">Get notified when someone follows you</span>
                     </div>
                     <div class="toggle-switch">
                         <input type="checkbox" id="follow-notifications">
@@ -827,8 +641,8 @@
                 </div>
                 <div class="notification-item">
                     <div class="notification-info">
-                        <span class="label">New Message</span>
-                        <span class="description">Get notified when you get a message</span>
+                        <span class="notification-label">New Message</span>
+                        <span class="notification-description">Get notified when you get a message</span>
                     </div>
                     <div class="toggle-switch">
                         <input type="checkbox" id="message-notifications">
